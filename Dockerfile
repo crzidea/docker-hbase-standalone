@@ -8,7 +8,13 @@ RUN wget --quiet https://www.apache.org/dist/hbase/$HBASE_VERSION/hbase-$HBASE_V
     rm hbase-$HBASE_VERSION-bin.tar.gz
 
 WORKDIR /var/lib/hbase
-
+ENV HBASE_LOG_DIR=logs
 ADD ./conf/hbase-site.xml /hbase/conf/hbase-site.xml
+ADD ./docker-entrypoint.sh /entrypoint.sh
 
-CMD /hbase/bin/start-hbase.sh
+CMD /entrypoint.sh
+
+EXPOSE 2181
+EXPOSE 16010
+EXPOSE 16020
+EXPOSE 16030
